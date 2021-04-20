@@ -1,7 +1,8 @@
-<%@page import="java.util.List"%>
+<%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList" %>
-<%@page import="dev.sgp.entite.Collaborateur"%>
+<%@ page import="dev.sgp.entite.Collaborateur"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +12,6 @@
 </head>
 <body>
 <h1>Les collaborateurs</h1>
-<ul>
-<%
-List<Collaborateur> listeCollaborateurs = (List<Collaborateur>) request.getAttribute("listeCollaborateurs");
-%>
  <table class="table table-bordered">
         <thead class="thead-light">
         <tr>
@@ -27,18 +24,16 @@ List<Collaborateur> listeCollaborateurs = (List<Collaborateur>) request.getAttri
         </tr>
         </thead>
         <tbody>
-        <%
-        for (Collaborateur collaborateur : listeCollaborateurs) {
-                out.println("<tr>");
-                out.println("<td>" + collaborateur.getMatricule() + "</td>");
-                out.println("<td>" + collaborateur.getPrenom() + "</td>");
-                out.println("<td>" + collaborateur.getNom() + "</td>");
-                out.println("<td>" + collaborateur.getDateDeNaissancetoString() + "</td>");
-                out.println("<td>" + collaborateur.getNumeroDeSecuriteSociale() + "</td>");
-                out.println("<td>" + collaborateur.getActif() + "</td>");
-                out.println("</tr>");
-            }
-        %>
+         <c:forEach items="${listeCollaborateurs}" var="collaborateur" >
+        <tr>
+            <td> <c:out value="${collaborateur.getMatricule()}"/> </td>
+            <td> <c:out value="${collaborateur.getPrenom()}"/> </td>
+            <td> <c:out value="${collaborateur.getNom()}"/> </td>
+            <td> <c:out value="${collaborateur.getDateDeNaissancetoString()}"/> </td>
+            <td> <c:out value="${collaborateur.getNumeroDeSecuriteSociale()}"/> </td>
+            <td> <c:out value="${collaborateur.getActif()}"/> </td>
+        </tr>
+        </c:forEach>
         </tbody>
     </table>
 </body>
